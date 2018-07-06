@@ -22,41 +22,27 @@ our activity.
 
 `ImagePickerActivity#startCameraMode`and `ImagePickerActivity#startImagePickMode`basically a `startActivityForResult` method with extra parameters (Extras)
 
-val pickImge=findViewByid(R.id.pickImage) as Button
-
-val captureImage=findViewById(R.id.captureImage) as Button
-
-pickImage.setOnClickListener {
-
-ImagePickerActivity.startImagePickMode(this, 132)
-
-}
-
-captureImage.setOnClickListener {
-
-ImagePickerActivity.startCameraMode(this, 132)
-
-}
+	val pickImge=findViewByid(R.id.pickImage) as Button
+	val captureImage=findViewById(R.id.captureImage) as Button
+	
+	pickImage.setOnClickListener {
+	ImagePickerActivity.startImagePickMode(this, 132)
+	}
+	captureImage.setOnClickListener {
+	ImagePickerActivity.startCameraMode(this, 132)
+	}
 
   
 
 3. override onActivityResult
 
-  
-
-override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-super.onActivityResult(requestCode, resultCode, data)
-
-if (requestCode == 132 && resultCode == Activity.RESULT_OK) {
-
-// URI to the captured/picked Image
-
-val uri = data?.getStringExtra(ImagePickerActivity.IMAGE_URI)
-
-}
-
-}
+		override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		super.onActivityResult(requestCode, resultCode, data)
+			if (requestCode == 132 && resultCode == Activity.RESULT_OK) {
+				// URI to the captured/picked Image
+				val uri = data?.getStringExtra(ImagePickerActivity.IMAGE_URI)
+			}
+		}
 
   
 
