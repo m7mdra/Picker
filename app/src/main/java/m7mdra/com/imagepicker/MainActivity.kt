@@ -32,10 +32,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
+        
         if (requestCode == 132 && resultCode == Activity.RESULT_OK) {
             val uriList:ArrayList<Image>? = data?.getParcelableArrayListExtra(ImagePickerActivity.SELECTED_IMAGE_URIS)
-            log(uriList!!)
+            uriList?.forEach {
+                uriTextView.append(it.imagePath+"\n")
+            }
         }
     }
 
