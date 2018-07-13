@@ -11,14 +11,13 @@ what dose this library do exactly?
  - Ability you to pick multiple images in one shot
  - Ability to capture Image from camera
 
- 
+ ### demo can be found [here](https://www.youtube.com/watch?v=spbX644P8Xg)
 
 ## Usage
 
 
-1. add this line to your manifest to allow the android os to recognize
+1. add this line to your manifest to allow the android os to recognize our activity.
 
-our activity.
 delcare these permissions:
   
 	<uses-permission android:name="android.permission.CAMERA"/>  
