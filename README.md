@@ -1,23 +1,38 @@
 
+
 # Picker
 
 A small library that allows you to pick/capture image from inside your application with 5 lines of code .
 
-  ##	demo
-  ![enter image description here](https://github.com/m7mdra/Picker/raw/master/art/demo.gif)
+what dose this library do exactly?
 
-# Usage
+ - Query the system for all images 
+ - Handle Run-time Permissions , permissions includes (`WRITE_EXTERNAL_STORAGE`,`READ_EXTERNAL_STORAGE`,`CAMERA`)
+ - Ability you to pick multiple images in one shot
+ - Ability to capture Image from camera
 
-  
+ 
+
+## Usage
+
 
 1. add this line to your manifest to allow the android os to recognize
 
 our activity.
-
+delcare these permissions:
   
+	<uses-permission android:name="android.permission.CAMERA"/>  
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>  
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
-<activity android:name="m7mdra.com.picker.ImagePickerActivity"/>
+then add this line to let the android os recognize our activity :
 
+	<activity android:name="m7mdra.com.picker.ImagePickerActivity"
+	android:theme="@style/PickerAppTheme"
+	/>
+
+ `android:theme="@style/PickerAppTheme"` add this line to use the style defined by the library otherwise it will inhert it from the application theme
+ 
 2. invoke the static method `ImagePickerActivity#startCameraMode` to start camera mode or `ImagePickerActivity#startImagePickMode`to start image picking mode.
 
 `ImagePickerActivity#startCameraMode`and `ImagePickerActivity#startImagePickMode`basically a `startActivityForResult` method with extra parameters (Extras)
@@ -26,10 +41,11 @@ our activity.
 	val captureImage=findViewById(R.id.captureImage) as Button
 	
 	pickImage.setOnClickListener {
-	ImagePickerActivity.startImagePickMode(this, 132)
+					// pass true to allow multiple picks
+		ImagePickerActivity.startImagePickMode(this, 132, false)
 	}
 	captureImage.setOnClickListener {
-	ImagePickerActivity.startCameraMode(this, 132)
+		ImagePickerActivity.startCameraMode(this, 132)
 	}
 
   
@@ -41,10 +57,14 @@ our activity.
 			if (requestCode == 132 && resultCode == Activity.RESULT_OK) {
 				// URI to the captured/picked Image
 				val uri = data?.getStringExtra(ImagePickerActivity.IMAGE_URI)
-			}
+				//if you passed true to startImagePickMode use the line below
+				//val uriList:ArrayList<Image>? = data?.getParcelableArrayListExtra(ImagePickerActivity.SELECTED_IMAGE_URIS)			}
+			
 		}
 
   
+
+
 
 thats it.
 
@@ -60,8 +80,8 @@ this library depends on the [CameraKit-Android](https://android-arsenal.com/deta
 
   
 
-- allow to pick multiple images in the same intent.
+- ~~Allow to pick multiple images in the same intent.~~
 
-- add support to pick videos and audio files.
+- Add support to capture/pick other media type like: audio,video etc...
 
-- improve the user interface.
+- ~~Improve the user interface.~~
