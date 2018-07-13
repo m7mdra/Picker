@@ -71,22 +71,19 @@ thats it.
   ### Add to your project? 
   Add it in your root build.gradle at the end of repositories:
 
-```css
 	allprojects {
 		repositories {
 			...
 			maven { url 'https://jitpack.io' }
 		}
 	}
-```
 
 **Step 2.**  Add the dependency
 
-```css
 	dependencies {
 	        implementation 'com.github.m7mdra:picker:0.2'
 	}
-```
+
 
 ### Dependencies:
 
