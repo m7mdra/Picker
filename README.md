@@ -68,9 +68,27 @@ then add this line to let the android os recognize our activity :
 
 thats it.
 
-  
+  ### Add to your project? 
+  Add it in your root build.gradle at the end of repositories:
 
-Dependencies:
+```css
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+**Step 2.**  Add the dependency
+
+```css
+	dependencies {
+	        implementation 'com.github.m7mdra:picker:0.2'
+	}
+```
+
+### Dependencies:
 
 this library depends on the [CameraKit-Android](https://android-arsenal.com/details/1/5383)
 
