@@ -1,4 +1,4 @@
-package m7mdra.com.picker.picker
+package m7mdra.com.picker.picker.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

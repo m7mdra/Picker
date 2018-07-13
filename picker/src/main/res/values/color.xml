@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="PickerColorPrimary">#fefefe</color>
+    <color name="PickerColorPrimaryDark">#f5f5f5</color>
+    <color name="PickerColorAccent">#ffab40</color>
+    <color name="PickerColorPrimaryText">#212121</color>
+    <color name="PickerColorSecondaryText">#757575</color>
+</resources>

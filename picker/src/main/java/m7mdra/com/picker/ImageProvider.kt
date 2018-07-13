@@ -23,8 +23,7 @@ class ImageProvider(private val contentResolver: ContentResolver) {
                 arrayOf(MediaStore.MediaColumns.DATA,
                         MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
                         MediaStore.Images.Media.HEIGHT,
-                        MediaStore.Images.Media.WIDTH
-                ),
+                        MediaStore.Images.Media.WIDTH),
                 null,
                 null,
                 "$orderBy DESC")
@@ -37,14 +36,15 @@ class ImageProvider(private val contentResolver: ContentResolver) {
         while (cursor.moveToNext()) {
             val absolutePathOfImage = cursor.getString(columnIndexData)
 
-            var width = cursor.getInt(columnIndexWidth)
-            var height = cursor.getInt(columnIndexHeight)
+            val width = cursor.getInt(columnIndexWidth)
+            val height = cursor.getInt(columnIndexHeight)
             if (width != 0 && height != 0) {
                 val element = Image(
                         folderName = cursor.getString(columnIndexFolderName),
                         imagePath = absolutePathOfImage,
                         width = width,
-                        height = height)
+                        height = height,
+                        imageId = absolutePathOfImage.hashCode())
                 imageList.add(element)
             }
         }

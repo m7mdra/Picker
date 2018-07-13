@@ -16,19 +16,19 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_photo_picker.*
-import m7mdra.com.picker.ImageProvider
-import m7mdra.com.picker.ItemClickListener
-import m7mdra.com.picker.R
+import m7mdra.com.picker.*
 import m7mdra.com.picker.model.Album
+import m7mdra.com.picker.picker.adapter.AlbumAdapter
 
 
-class PhotoPickerFragment : Fragment(), ItemClickListener<Album> {
-    override fun onClick(view: View, t: Album, position: Int) {
+class AlbumFragment : Fragment(), ItemClickListener<Album> {
+    override fun onClick(view: View, item: Album, position: Int) {
         fragmentManager?.beginTransaction()?.apply {
-                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                replace(R.id.fragment_layout, ImagesFragment.newInstance(t))
-                addToBackStack("")
-                commit()
+            val multiplePicks = arguments?.getBoolean(ImagePickerActivity.PICK_COUNT)
+            replace(R.id.fragment_layout, ImageFragment.newInstance(item, multiplePicks!!))
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            addToBackStack("")
+            commit()
         }
     }
 
@@ -65,14 +65,17 @@ class PhotoPickerFragment : Fragment(), ItemClickListener<Album> {
                             Manifest.permission.WRITE_EXTERNAL_STORAGE) && ActivityCompat.shouldShowRequestPermissionRationale(activity,
                             Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 AlertDialog.Builder(activity)
-                        .setTitle("Read and Write permission Are Required.")
-                        .setMessage("We use these permission to allow you pick/capture images")
+                        .setTitle(getString(R.string.write_permission_dialog_title))
+                        .setMessage(getString(R.string.write_permission_dialog_message))
                         .setCancelable(false)
-                        .setPositiveButton("ok", { _, _ ->
+                        .setPositiveButton(android.R.string.ok, { _, _ ->
                             ActivityCompat.requestPermissions(activity,
                                     arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE),
                                     123)
-                        }).setNegativeButton("Cancel", { dialogInterface, _ -> dialogInterface.dismiss() })
+                        }).setNegativeButton(android.R.string.cancel, { dialogInterface, _ ->
+                            dialogInterface.dismiss()
+                            activity.finish()
+                        })
                         .create().show()
             } else {
                 ActivityCompat.requestPermissions(activity,
@@ -91,7 +94,7 @@ class PhotoPickerFragment : Fragment(), ItemClickListener<Album> {
         recyclerView.setHasFixedSize(true)
         recyclerView.isDrawingCacheEnabled = true
         recyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
-        recyclerView.adapter = ImagesFolderAdapter(images, picasso, this)
+        recyclerView.adapter = AlbumAdapter(images, picasso, this)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -99,6 +102,17 @@ class PhotoPickerFragment : Fragment(), ItemClickListener<Album> {
         if (requestCode == 123 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED)
             bindDataToList()
         // TODO: 26/06/18 else
+    }
+
+    companion object {
+        fun newInstance(multiplePicks: Boolean): Fragment {
+            val bundle = Bundle()
+            bundle.putBoolean(ImagePickerActivity.PICK_COUNT, multiplePicks)
+            val photoPickerFragment = AlbumFragment()
+            photoPickerFragment.arguments = bundle
+
+            return photoPickerFragment
+        }
     }
 
 }

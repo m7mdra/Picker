@@ -2,6 +2,7 @@ package m7mdra.com.picker
 
 import android.content.Context
 import android.os.SystemClock
+import android.util.Log
 import okio.BufferedSink
 import okio.Okio
 import java.io.File
@@ -15,4 +16,8 @@ public fun saveImage(context: Context, jpeg: ByteArray): File {
     val sink = Okio.buffer(Okio.sink(fileOutputStream))
     (sink as BufferedSink).write(jpeg, 0, jpeg.size)
     return image
+}
+
+public fun log(any: Any) {
+    Log.d("MEGA", any.toString())
 }

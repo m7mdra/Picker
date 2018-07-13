@@ -11,6 +11,8 @@ import android.widget.Toast
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import m7mdra.com.picker.ImagePickerActivity
+import m7mdra.com.picker.log
+import m7mdra.com.picker.model.Image
 import java.io.File
 
 
@@ -18,8 +20,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         pickImage.setOnClickListener {
-            ImagePickerActivity.startImagePickMode(this, 132)
+            ImagePickerActivity.startImagePickMode(this, 132, true)
 
         }
         captureImage.setOnClickListener {
@@ -31,8 +34,8 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 132 && resultCode == Activity.RESULT_OK) {
-            val uri = data?.getStringExtra(ImagePickerActivity.IMAGE_URI)
-            Picasso.with(this).load(File(uri)).fit().into(image)
+            val uriList:ArrayList<Image>? = data?.getParcelableArrayListExtra(ImagePickerActivity.SELECTED_IMAGE_URIS)
+            log(uriList!!)
         }
     }
 

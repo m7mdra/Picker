@@ -1,4 +1,4 @@
-package m7mdra.com.picker.picker
+package m7mdra.com.picker.picker.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import m7mdra.com.picker.R
 import m7mdra.com.picker.model.Album
 import java.io.File
 
-class ImagesFolderAdapter(private val imagesList: List<Album>, private val picasso: Picasso,
-                          private val itemClickListener: ItemClickListener<Album>) :
+class AlbumAdapter(private val imagesList: List<Album>, private val picasso: Picasso,
+                   private val itemClickListener: ItemClickListener<Album>) :
         RecyclerView.Adapter<ImagesFolderViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImagesFolderViewHolder =
             ImagesFolderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_folder_image, parent, false))

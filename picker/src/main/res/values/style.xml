@@ -1,0 +1,11 @@
+<resources>
+
+    <style name="PickerAppTheme" parent="Theme.AppCompat.DayNight">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/PickerColorPrimary</item>
+        <item name="colorPrimaryDark">@color/PickerColorPrimaryDark</item>
+        <item name="colorAccent">@color/PickerColorAccent</item>
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
+</resources>
