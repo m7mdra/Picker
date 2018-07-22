@@ -70,12 +70,13 @@ class ImagePickerActivity : AppCompatActivity() {
         internal const val PICK_COUNT = "pickCount"
         const val SELECTED_IMAGE_URIS = "SelectedImageUris"
         const val IMAGE_URI = "imageUri"
+        @JvmStatic
         fun startCameraMode(activity: Activity, requestCode: Int) {
             val intent = Intent(activity, ImagePickerActivity::class.java)
             intent.putExtra(MODE, MODE_CAMERA)
             activity.startActivityForResult(intent, requestCode)
         }
-
+        @JvmStatic
         fun startImagePickMode(activity: Activity, requestCode: Int, multiplePicks: Boolean) {
             val intent = Intent(activity, ImagePickerActivity::class.java)
             intent.putExtra(MODE, MODE_PICK)
