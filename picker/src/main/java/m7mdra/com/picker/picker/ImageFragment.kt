@@ -2,7 +2,9 @@ package m7mdra.com.picker.picker
 
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.view.ActionMode
@@ -11,6 +13,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.*
 
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_image_picker.view.*
 import kotlinx.android.synthetic.main.fragment_images.*
 import m7mdra.com.picker.ImagePickerActivity
 import m7mdra.com.picker.ItemClickListener
@@ -63,20 +66,24 @@ class ImageFragment : Fragment(), ItemClickListener<String>, ActionMode.Callback
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val images = arguments?.getParcelable(IMAGES) as Album
-        supportActionMode = (activity as ImagePickerActivity).startSupportActionMode(this)
-        supportActionMode?.title = getString(R.string._0_selected)
-        supportActionMode?.subtitle = images.folderName
+        val multiplePicks: Boolean = arguments?.getBoolean(ImagePickerActivity.PICK_COUNT)!!
 
+        if (multiplePicks) {
+            supportActionMode = (activity as ImagePickerActivity).startSupportActionMode(this)
+            supportActionMode?.title = getString(R.string._0_selected)
+            supportActionMode?.subtitle = images.folderName
+        } else {
+            (activity as ImagePickerActivity).setActionBarTitle(images.folderName, images.pathList.size)
+        }
         recyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.setItemViewCacheSize(20)
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.setHasFixedSize(true)
         recyclerView.isDrawingCacheEnabled = true
         recyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
-        val multiplePicks: Boolean = arguments?.getBoolean(ImagePickerActivity.PICK_COUNT)!!
 
         imageAdapter = ImageAdapter(images, Picasso.with(activity), this, multiplePicks)
-        { _, i -> supportActionMode?.title = String.format("%d %s",i,getString(R.string.selected))}
+        { _, i -> supportActionMode?.title = String.format("%d %s", i, getString(R.string.selected)) }
         recyclerView.adapter = imageAdapter
     }
 
@@ -87,13 +94,19 @@ class ImageFragment : Fragment(), ItemClickListener<String>, ActionMode.Callback
 
 
     override fun onClick(view: View, uri: String, position: Int) {
-        val data = Intent()
-        data.putExtra(ImagePickerActivity.IMAGE_URI, uri)
-        activity?.apply {
-            setResult(Activity.RESULT_OK, data)
-            finish()
-        }
+          val data = Intent()
+          data.putExtra(ImagePickerActivity.IMAGE_URI, uri)
+          activity?.apply {
+              setResult(Activity.RESULT_OK, data)
+              finish()
+          }
+       /* fragmentManager?.apply {
+            beginTransaction()
+                    .replace(R.id.fragment_layout, CropFragment.newInstance(uri))
+                    .addToBackStack("")
+                    .commit()
 
+        }*/
     }
 
     companion object {

@@ -2,7 +2,9 @@ package m7mdra.com.picker.camera
 
 
 import android.app.Activity
+import android.app.FragmentTransaction
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -36,14 +38,15 @@ class ImagePreviewFragment : Fragment() {
                 .into(imageView)
 
         accept_image_button.setOnClickListener {
-            val data = Intent()
-            data.putExtra(ImagePickerActivity.IMAGE_URI, img)
-            activity?.setResult(Activity.RESULT_OK, data)
-            activity?.finish()
+             val data = Intent()
+             data.putExtra(ImagePickerActivity.IMAGE_URI, img)
+             activity?.setResult(Activity.RESULT_OK, data)
+             activity?.finish()
         }
 
         reject_image_button.setOnClickListener { activity?.onBackPressed() }
     }
+
 
     companion object {
 

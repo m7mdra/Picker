@@ -21,6 +21,10 @@
         <activity android:name="m7mdra.com.picker.ImagePickerActivity"
             android:theme="@style/PickerAppTheme"
             />
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/PickerAppTheme"/>
     </application>
+
+
 
 </manifest>

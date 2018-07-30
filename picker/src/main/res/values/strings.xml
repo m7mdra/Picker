@@ -9,4 +9,7 @@
     <string name="write_permission_dialog_message">We use these permission to allow you pick/capture images</string>
     <string name="_0_selected">0 Selected</string>
     <string name="selected">Selected</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

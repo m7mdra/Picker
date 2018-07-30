@@ -3,12 +3,15 @@ package m7mdra.com.imagepicker
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.squareup.picasso.Picasso
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_main.*
 import m7mdra.com.picker.ImagePickerActivity
 import m7mdra.com.picker.log
@@ -22,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         pickImage.setOnClickListener {
-            ImagePickerActivity.startImagePickMode(this, 132, true)
+            ImagePickerActivity.startImagePickMode(this, 132, false)
 
         }
         captureImage.setOnClickListener {
@@ -32,12 +35,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        
+
         if (requestCode == 132 && resultCode == Activity.RESULT_OK) {
-            val uriList:ArrayList<Image>? = data?.getParcelableArrayListExtra(ImagePickerActivity.SELECTED_IMAGE_URIS)
-            uriList?.forEach {
-                uriTextView.append(it.imagePath+"\n")
-            }
+            val uri = data?.getStringExtra(ImagePickerActivity.IMAGE_URI)
+            log(uri.toString())
+            log(Uri.fromFile(File(uri)))
+            CropImage.activity(Uri.fromFile(File(uri)))
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .start(this)
         }
     }
 
