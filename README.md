@@ -80,7 +80,7 @@ thats it.
 **Step 2.**  Add the dependency
 
 	dependencies {
-	        implementation 'com.github.m7mdra:picker:0.2'
+	        implementation 'com.github.m7mdra:picker:0.22.1'
 	}
 
 
