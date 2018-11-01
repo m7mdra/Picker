@@ -84,12 +84,6 @@ thats it.
 	}
 
 
-### Dependencies:
-
-this library depends on the [CameraKit-Android](https://android-arsenal.com/details/1/5383)
-
-  
-
 # Todo
 
   
