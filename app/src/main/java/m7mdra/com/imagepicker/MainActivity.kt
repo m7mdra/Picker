@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         }
         captureImage.setOnClickListener {
-            ImagePickerActivity.startCameraMode(this, 132)
+            ImagePickerActivity.startCameraMode(this, 132, packageName)
         }
     }
 

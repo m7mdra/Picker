@@ -115,7 +115,7 @@ class ImagePickerActivity : AppCompatActivity() {
                 photoFile?.also {
                     val photoURI: Uri = FileProvider.getUriForFile(
                             this,
-                            "m7mdra.com.imagepicker.fileprovider",
+                            "${intent.getStringExtra(PACKEGE_NAME)}",
                             it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
@@ -133,11 +133,13 @@ class ImagePickerActivity : AppCompatActivity() {
                     .setAllowRotation(true)
                     .setAllowCounterRotation(true)
                     .setOutputCompressFormat(Bitmap.CompressFormat.JPEG)
+                    .setRequestedSize(600, 600, CropImageView.RequestSizeOptions.SAMPLING)
                     .setOutputCompressQuality(70)
                     .setOutputUri(Uri.fromFile(File(capturedImagePath)))
                     .start(this)
         } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             val result = CropImage.getActivityResult(data)
+
             when (resultCode) {
                 RESULT_OK -> {
                     val resultUri = result.uri.path
@@ -182,11 +184,12 @@ class ImagePickerActivity : AppCompatActivity() {
         const val SELECTED_IMAGE_URIS = "SelectedImageUris"
         const val IMAGE_URI = "imageUri"
         private const val REQUEST_TAKE_PHOTO = 1
-
+        private const val PACKEGE_NAME = "key_package_name"
         @JvmStatic
-        fun startCameraMode(activity: Activity, requestCode: Int) {
+        fun startCameraMode(activity: Activity, requestCode: Int, packageName: String) {
             val intent = Intent(activity, ImagePickerActivity::class.java)
             intent.putExtra(MODE, MODE_CAMERA)
+            intent.putExtra(PACKEGE_NAME, packageName)
             activity.startActivityForResult(intent, requestCode)
         }
 
