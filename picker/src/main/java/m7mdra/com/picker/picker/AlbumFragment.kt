@@ -68,14 +68,14 @@ class AlbumFragment : Fragment(), ItemClickListener<Album> {
                         .setTitle(getString(R.string.write_permission_dialog_title))
                         .setMessage(getString(R.string.write_permission_dialog_message))
                         .setCancelable(false)
-                        .setPositiveButton(android.R.string.ok, { _, _ ->
+                        .setPositiveButton(android.R.string.ok) { _, _ ->
                             ActivityCompat.requestPermissions(activity,
                                     arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE),
                                     123)
-                        }).setNegativeButton(android.R.string.cancel, { dialogInterface, _ ->
+                        }.setNegativeButton(android.R.string.cancel) { dialogInterface, _ ->
                             dialogInterface.dismiss()
                             activity.finish()
-                        })
+                        }
                         .create().show()
             } else {
                 ActivityCompat.requestPermissions(activity,
