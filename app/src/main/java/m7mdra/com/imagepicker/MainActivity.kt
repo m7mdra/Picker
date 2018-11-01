@@ -7,11 +7,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import com.squareup.picasso.Picasso
-import com.theartofdev.edmodo.cropper.CropImage
-import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_main.*
 import m7mdra.com.picker.ImagePickerActivity
 import m7mdra.com.picker.log
@@ -35,14 +31,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (requestCode == 132 && resultCode == Activity.RESULT_OK) {
-            val uri = data?.getStringExtra(ImagePickerActivity.IMAGE_URI)
-            log(uri.toString())
-            log(Uri.fromFile(File(uri)))
-            CropImage.activity(Uri.fromFile(File(uri)))
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    .start(this)
+            val uri: String? = data?.getStringExtra(ImagePickerActivity.IMAGE_URI)
+            if (uri != null)
+                Picasso.with(this).load(File(uri)).into(imageView)
         }
     }
 
