@@ -128,18 +128,24 @@ class ImagePickerActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
-            CropImage.activity(Uri.fromFile(File(capturedImagePath)))
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    .setAllowRotation(true)
-                    .setAllowCounterRotation(true)
-                    .setOutputCompressFormat(Bitmap.CompressFormat.JPEG)
-                    .setRequestedSize(600, 600, CropImageView.RequestSizeOptions.SAMPLING)
-                    .setOutputCompressQuality(70)
-                    .setOutputUri(Uri.fromFile(File(capturedImagePath)))
-                    .start(this)
+            if (intent.getBooleanExtra(CROP_IMAGE, true)) {
+                CropImage.activity(Uri.fromFile(File(capturedImagePath)))
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setAllowRotation(true)
+                        .setAllowCounterRotation(true)
+                        .setOutputCompressFormat(Bitmap.CompressFormat.JPEG)
+                        .setRequestedSize(600, 600, CropImageView.RequestSizeOptions.SAMPLING)
+                        .setOutputCompressQuality(70)
+                        .setOutputUri(Uri.fromFile(File(capturedImagePath)))
+                        .start(this)
+            } else {
+                val intent = Intent()
+                intent.putExtra(ImagePickerActivity.IMAGE_URI, capturedImagePath)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+            }
         } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             val result = CropImage.getActivityResult(data)
-
             when (resultCode) {
                 RESULT_OK -> {
                     val resultUri = result.uri.path
@@ -185,11 +191,13 @@ class ImagePickerActivity : AppCompatActivity() {
         const val IMAGE_URI = "imageUri"
         private const val REQUEST_TAKE_PHOTO = 1
         private const val PACKEGE_NAME = "key_package_name"
+        private const val CROP_IMAGE = "crop_image"
         @JvmStatic
-        fun startCameraMode(activity: Activity, requestCode: Int, packageName: String) {
+        fun startCameraMode(activity: Activity, requestCode: Int, packageName: String, cropImage: Boolean) {
             val intent = Intent(activity, ImagePickerActivity::class.java)
             intent.putExtra(MODE, MODE_CAMERA)
             intent.putExtra(PACKEGE_NAME, packageName)
+            intent.putExtra(CROP_IMAGE, cropImage)
             activity.startActivityForResult(intent, requestCode)
         }
 
