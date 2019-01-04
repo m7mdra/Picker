@@ -113,6 +113,6 @@ thats it.
 **Step 2.**  Add the dependency
 
 	dependencies {
-	        implementation 'com.github.m7mdra:picker:0.22.1'
-	}
+	        implementation 'com.github.m7mdra:Picker:0.24'
+		}
 
