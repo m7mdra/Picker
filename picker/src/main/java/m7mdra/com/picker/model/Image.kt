@@ -9,8 +9,8 @@ data class Image(var folderName: String,
                  var width: Int = 0,
                  var imageId: Int) : Parcelable {
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString(),
+            source.readString()!!,
+            source.readString()!!,
             source.readInt(),
             source.readInt(),
             source.readInt()

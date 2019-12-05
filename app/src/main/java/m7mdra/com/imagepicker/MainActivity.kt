@@ -3,15 +3,12 @@ package m7mdra.com.imagepicker
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import m7mdra.com.picker.ImagePickerActivity
-import m7mdra.com.picker.log
-import m7mdra.com.picker.model.Image
+
 import java.io.File
 
 
@@ -25,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         }
         captureImage.setOnClickListener {
-            ImagePickerActivity.startCameraMode(this, 132, packageName,false)
+            ImagePickerActivity.startCameraMode(this, 132, packageName)
         }
     }
 

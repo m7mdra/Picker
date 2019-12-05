@@ -2,26 +2,20 @@ package m7mdra.com.picker.picker
 
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.view.ActionMode
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.*
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_image_picker.view.*
 import kotlinx.android.synthetic.main.fragment_images.*
 import m7mdra.com.picker.ImagePickerActivity
 import m7mdra.com.picker.ItemClickListener
 import m7mdra.com.picker.R
-import m7mdra.com.picker.R.id.recyclerView
 import m7mdra.com.picker.log
 import m7mdra.com.picker.model.Album
-import m7mdra.com.picker.model.Image
 import m7mdra.com.picker.picker.adapter.ImageAdapter
 
 
@@ -65,11 +59,11 @@ class ImageFragment : Fragment(), ItemClickListener<String>, ActionMode.Callback
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val images = arguments?.getParcelable(IMAGES) as Album
+        val images = arguments?.getParcelable<Album>(IMAGES) as Album
         val multiplePicks: Boolean = arguments?.getBoolean(ImagePickerActivity.PICK_COUNT)!!
 
         if (multiplePicks) {
-            supportActionMode = (activity as ImagePickerActivity).startSupportActionMode(this)
+            supportActionMode = (activity as ImagePickerActivity).startActionMode(this)
             supportActionMode?.title = getString(R.string._0_selected)
             supportActionMode?.subtitle = images.folderName
         } else {
@@ -101,7 +95,7 @@ class ImageFragment : Fragment(), ItemClickListener<String>, ActionMode.Callback
               finish()
           }
        /* fragmentManager?.apply {
-            beginTransaction()
+            beginTransactio()
                     .replace(R.id.fragment_layout, CropFragment.newInstance(uri))
                     .addToBackStack("")
                     .commit()

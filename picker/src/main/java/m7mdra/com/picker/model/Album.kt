@@ -2,26 +2,30 @@ package m7mdra.com.picker.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.io.Serializable
 
 data class Album(val folderName: String, val pathList: List<Image>) : Parcelable {
-    constructor(source: Parcel) : this(
-            source.readString(),
-            source.createTypedArrayList(Image.CREATOR)
-    )
-
-    override fun describeContents() = 0
-
-    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeString(folderName)
-        writeTypedList(pathList)
+    constructor(parcel: Parcel) : this(
+            parcel.readString()!!,
+            parcel.createTypedArrayList(Image.CREATOR)!!) {
     }
 
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<Album> = object : Parcelable.Creator<Album> {
-            override fun createFromParcel(source: Parcel): Album = Album(source)
-            override fun newArray(size: Int): Array<Album?> = arrayOfNulls(size)
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(folderName)
+        parcel.writeTypedList(pathList)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Album> {
+        override fun createFromParcel(parcel: Parcel): Album {
+            return Album(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Album?> {
+            return arrayOfNulls(size)
         }
     }
+
 }

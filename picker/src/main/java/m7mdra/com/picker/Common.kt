@@ -2,11 +2,9 @@ package m7mdra.com.picker
 
 import android.app.Activity
 import android.content.Context
-import android.support.v4.app.Fragment
 import android.util.Log
 import android.widget.Toast
-
-
+import androidx.fragment.app.Fragment
 
 
 fun log(any: Any, tag: String="MEGA") {

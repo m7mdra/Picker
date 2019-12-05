@@ -1,8 +1,8 @@
 package m7mdra.com.picker.picker.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import m7mdra.com.picker.ItemClickListener
 import m7mdra.com.picker.R

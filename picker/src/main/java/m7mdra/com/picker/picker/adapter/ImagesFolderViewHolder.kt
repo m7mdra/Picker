@@ -1,9 +1,9 @@
 package m7mdra.com.picker.picker.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import m7mdra.com.picker.R
 
 class ImagesFolderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
