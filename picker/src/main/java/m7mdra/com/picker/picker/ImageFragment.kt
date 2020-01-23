@@ -76,7 +76,7 @@ class ImageFragment : Fragment(), ItemClickListener<String>, ActionMode.Callback
         recyclerView.isDrawingCacheEnabled = true
         recyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
 
-        imageAdapter = ImageAdapter(images, Picasso.with(activity), this, multiplePicks)
+        imageAdapter = ImageAdapter(images, Picasso.get(), this, multiplePicks)
         { _, i -> supportActionMode?.title = String.format("%d %s", i, getString(R.string.selected)) }
         recyclerView.adapter = imageAdapter
     }

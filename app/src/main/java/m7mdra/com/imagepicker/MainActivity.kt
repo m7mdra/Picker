@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == 132 && resultCode == Activity.RESULT_OK) {
             val uri: String? = data?.getStringExtra(ImagePickerActivity.IMAGE_URI)
             if (uri != null)
-                Picasso.with(this).load(File(uri)).into(imageView)
+                Picasso.get().load(File(uri)).into(imageView)
         }
     }
 

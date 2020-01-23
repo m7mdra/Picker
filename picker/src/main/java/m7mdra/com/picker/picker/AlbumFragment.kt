@@ -46,7 +46,7 @@ class AlbumFragment : Fragment(), ItemClickListener<Album> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         imageProvider = ImageProvider(activity.contentResolver)
-        picasso = Picasso.with(activity)
+        picasso = Picasso.get()
 
     }
 
