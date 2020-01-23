@@ -18,11 +18,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         pickImage.setOnClickListener {
-            ImagePickerActivity.startImagePickMode(this, 132, false)
+            ImagePickerActivity.startImagePickMode(this, 132)
 
         }
         captureImage.setOnClickListener {
-            ImagePickerActivity.startCameraMode(this, 132, packageName)
+            ImagePickerActivity.startCameraMode(this, 132)
         }
     }
 

@@ -161,15 +161,15 @@ class ImagePickerActivity : AppCompatActivity() {
         private const val REQUEST_TAKE_PHOTO = 1
         private const val PACKEGE_NAME = "key_package_name"
         @JvmStatic
-        fun startCameraMode(activity: Activity, requestCode: Int, packageName: String) {
+        fun startCameraMode(activity: Activity, requestCode: Int) {
             val intent = Intent(activity, ImagePickerActivity::class.java)
             intent.putExtra(MODE, MODE_CAMERA)
-            intent.putExtra(PACKEGE_NAME, packageName)
+            intent.putExtra(PACKEGE_NAME, activity.packageName)
             activity.startActivityForResult(intent, requestCode)
         }
 
         @JvmStatic
-        fun startImagePickMode(activity: Activity, requestCode: Int, multiplePicks: Boolean) {
+        fun startImagePickMode(activity: Activity, requestCode: Int, multiplePicks: Boolean = false) {
             val intent = Intent(activity, ImagePickerActivity::class.java)
             intent.putExtra(MODE, MODE_PICK)
             intent.putExtra(PICK_COUNT, multiplePicks)
